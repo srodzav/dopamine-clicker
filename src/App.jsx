@@ -10,7 +10,9 @@ function App() {
   // boosts is the array of objects of boosts
   const [boosts, setBoosts] = useState([
     { id: 'x2', cost: 10, factor: 2, bought: false },
-    { id: 'x3', cost: 50, factor: 3, bought: false },
+    { id: 'x3', cost: 40, factor: 3, bought: false, requires: 'x2' },
+    { id: 'x5', cost: 100, factor: 5, bought: false, requires: 'x3' },
+    { id: 'auto', cost: 200, factor: 1, bought: false, requires: 'x3' },
   ]);
   // multiplier is the main changer of points
   const multiplier = boosts.reduce((m, b) => (b.bought ? m * b.factor : m), 1);
@@ -37,6 +39,13 @@ function App() {
     setBoosts((bs) => bs.map((b) => (b.id === boostId ? { ...b, bought: true } : b)));
   }
 
+  // check if a boost is already unlocked
+  function isUnlocked(boost) {
+    if (!boost.requires) return true;
+    const requiredBoost = boosts.find((b) => b.id === boost.requires);
+    return requiredBoost?.bought;
+  }
+
   // wip ui
   return (
     <>
@@ -50,14 +59,11 @@ function App() {
           {count}
         </Button>
       </div>
-      <button
-        onClick={(e) => {
-          e.currentTarget.blur();
-          buyBoost('x2');
-        }}
-        disabled={count < 10 || boosts.find((b) => b.id === 'x2').bought}>
-        buy x2 (cost: 10)
-      </button>
+      {boosts.filter(isUnlocked).map((b) => (
+        <button key={b.id} onClick={() => buyBoost(b.id)} disabled={count < b.cost || b.bought}>
+          buy {b.id} (cost: {b.cost})
+        </button>
+      ))}
     </>
   );
 }
