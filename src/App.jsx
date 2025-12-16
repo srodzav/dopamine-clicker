@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Button from './components/Button';
+import { BOOSTS } from './data/boosts';
+import BoostButton from './components/BoostButton';
+import DvdLogo from './components/visuals/DvdLogo';
 
 function App() {
   // main variables, count for points
@@ -8,22 +11,18 @@ function App() {
   // ticking boolean flag to start the game
   const [ticking, setTicking] = useState(false);
   // boosts is the array of objects of boosts
-  const [boosts, setBoosts] = useState([
-    { id: 'x2', cost: 10, factor: 2, bought: false },
-    { id: 'x3', cost: 40, factor: 3, bought: false, requires: 'x2' },
-    { id: 'x5', cost: 100, factor: 5, bought: false, requires: 'x3' },
-    { id: 'auto', cost: 200, factor: 1, bought: false, requires: 'x3' },
-  ]);
+  const [boosts, setBoosts] = useState(BOOSTS.map((b) => ({ ...b, bought: false })));
   // multiplier is the main changer of points
-  const multiplier = boosts.reduce((m, b) => (b.bought ? m * b.factor : m), 1);
+  const multiplier = Math.max(1, ...boosts.filter((b) => b.bought && b.type === 'multiplier').map((b) => b.factor));
 
   // game start and core game
   useEffect(() => {
     if (!ticking) return;
-    const increment = 1 * multiplier;
+
     const id = setInterval(() => {
-      setCount((c) => c + increment);
+      setCount((c) => c + 1 * multiplier);
     }, 1000);
+
     return () => clearInterval(id);
   }, [ticking, multiplier]);
 
@@ -60,10 +59,9 @@ function App() {
         </Button>
       </div>
       {boosts.filter(isUnlocked).map((b) => (
-        <button key={b.id} onClick={() => buyBoost(b.id)} disabled={count < b.cost || b.bought}>
-          buy {b.id} (cost: {b.cost})
-        </button>
+        <BoostButton key={b.id} boost={b} count={count} onBuy={buyBoost} />
       ))}
+      {boosts.some((b) => b.id === 'dvd' && b.bought) && <DvdLogo />}
     </>
   );
 }
