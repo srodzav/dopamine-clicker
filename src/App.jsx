@@ -69,7 +69,22 @@ function App() {
       {boosts.filter(isUnlocked).map((b) => (
         <BoostButton key={b.id} boost={b} count={count} onBuy={buyBoost} />
       ))}
-      {boosts.some((b) => b.id === 'dvd' && b.bought) && <DvdLogo />}
+      {boosts.some((b) => b.id === 'dvd' && b.bought) && (
+        <DvdLogo
+          onGain={(value) => {
+            setCount((c) => c + value);
+            // +1 bounce event
+            window.dispatchEvent(
+              new CustomEvent('GAIN_MESSAGE', {
+                detail: {
+                  value,
+                  type: 'dvd',
+                },
+              })
+            );
+          }}
+        />
+      )}
     </>
   );
 }
