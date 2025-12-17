@@ -1,0 +1,36 @@
+.gain-feed {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(40px, -50%);
+}
+
+.gain-msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.gain-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #7cff7c;
+
+  opacity: 0;
+  animation: floatFade 0.9s ease-out forwards;
+}
+
+@keyframes floatFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}

@@ -8,21 +8,21 @@ export const BOOSTS = [
   {
     id: 'x3',
     type: 'multiplier',
-    cost: 40, // test. change in production
+    cost: 35, // test. change in production
     factor: 3,
     requires: 'x2',
   },
   {
     id: 'x5',
     type: 'multiplier',
-    cost: 100, // test. change in production
+    cost: 75, // test. change in production
     factor: 5,
     requires: 'x3',
   },
   {
     id: 'dvd',
     type: 'visual',
-    cost: 75, // test. change in production
+    cost: 50, // test. change in production
     requires: 'x3',
     visual: 'dvd',
   },
