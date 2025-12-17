@@ -3,6 +3,7 @@ import Button from './components/Button';
 import BoostButton from './components/BoostButton';
 import GainFeed from './components/GainFeed';
 import DvdLogo from './components/visuals/DvdLogo';
+import useGameTick from './hooks/useGameTick';
 import { BOOSTS } from './data/boosts';
 import './App.css';
 
@@ -21,15 +22,13 @@ function App() {
   const gain = 1 * multiplier;
 
   // game start and core game
-  useEffect(() => {
-    if (!ticking) return;
-
-    const id = setInterval(() => {
-      setCount((c) => c + gain);
-    }, 1000);
-
-    return () => clearInterval(id);
-  }, [ticking, gain]);
+  useGameTick({
+    ticking,
+    gain,
+    onTick: (value) => {
+      setCount((c) => c + value);
+    },
+  });
 
   // buy function
   function buyBoost(id) {
