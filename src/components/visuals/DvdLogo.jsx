@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import './dvd.css';
 
+// dvd logo component
+// maybe ill change to an actual dvd logo
 export default function DvdLogo() {
   const dvdRef = useRef(null);
 
@@ -11,6 +13,7 @@ export default function DvdLogo() {
     let x = Math.random() * (window.innerWidth - 100);
     let y = Math.random() * (window.innerHeight - 50);
 
+    //speed control
     let vx = 1;
     let vy = 1;
 
@@ -33,6 +36,7 @@ export default function DvdLogo() {
         bounced = true;
       }
 
+      // currently theres a bug that the logo change no matter what
       if (bounced) {
         dvd.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
       }
