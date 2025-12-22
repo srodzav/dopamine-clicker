@@ -1,6 +1,6 @@
 .gain-feed {
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(40px, -50%);
 }
@@ -21,17 +21,17 @@
 
 /* normal */
 .gain-tick {
-  color: #7cff7c;
+  color: #f2ff00;
 }
 
 /* DVD bounce */
 .gain-dvd {
-  color: #00e1ff;
+  color: #7cff7c;
 }
 
-/* DVD concer bounce */
+/* DVD corner bounce */
 .gain-corner {
-  color: gold;
+  color: red;
 }
 
 @keyframes floatFade {

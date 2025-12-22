@@ -66,10 +66,12 @@ function App() {
       </div>
 
       {/* list of perks/boosts */}
-      {boosts.filter(isUnlocked).map((b) => (
-        <BoostButton key={b.id} boost={b} count={count} onBuy={buyBoost} />
-      ))}
-      {boosts.some((b) => b.id === 'dvd' && b.bought) && (
+      <div className="boosts-container">
+        {boosts.filter(isUnlocked).map((b) => (
+          <BoostButton key={b.id} boost={b} count={count} onBuy={buyBoost} />
+        ))}
+      </div>
+      {boosts.some((b) => b.id === 'DVD' && b.bought) && (
         <DvdLogo
           onGain={(value) => {
             setCount((c) => c + value);
@@ -82,6 +84,13 @@ function App() {
                 },
               })
             );
+          }}
+        />
+      )}
+      {boosts.some((b) => b.id === 'progress bar' && b.bought) && (
+        <ProgressBar
+          onGain={(value) => {
+            setCount((c) => c + value);
           }}
         />
       )}

@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import './dvd.css';
 
 // dvd logo
-// todo: change to actual image
 export default function DvdLogo({ onGain }) {
   // animation ref
   const dvdRef = useRef(null);
@@ -73,10 +72,9 @@ export default function DvdLogo({ onGain }) {
     return () => cancelAnimationFrame(rafId.current);
   }, []);
 
-  // todo: change to actual image
   return (
     <div ref={dvdRef} className="dvd">
-      DVD
+      <img src="src/assets/dvd.png" className="dvd-img" />
     </div>
   );
 }

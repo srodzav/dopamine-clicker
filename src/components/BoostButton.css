@@ -1,0 +1,50 @@
+.boost-button {
+  background: #53ab06;
+  border-radius: 12px;
+  padding: 1em 1.5em;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.boost-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.boost-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.boost-button:disabled {
+  background: #4a4a4a;
+  opacity: 0.5;
+}
+
+.boost-button.bought {
+  background: #355e02;
+}
+
+.boost-button-label {
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+.boost-button-cost {
+  font-size: 0.85em;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.boosts-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 1rem;
+}

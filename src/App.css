@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+body {
+  display: flex;
+  place-items: center;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
 .card {
   padding: 2em;
   position: relative;
