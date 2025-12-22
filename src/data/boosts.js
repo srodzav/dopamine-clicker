@@ -20,23 +20,37 @@ export const BOOSTS = [
     requires: 'x3',
   },
   {
-    id: 'dvd',
+    id: 'DVD',
     type: 'visual',
     cost: 50, // test. change in production
     requires: 'x3',
     visual: 'dvd',
+  },
+  {
+    id: 'progress bar',
+    type: 'visual',
+    cost: 200,
+    requires: 'x5',
+    visual: 'progressbar',
+  },
+  {
+    id: 'subway surfers',
+    type: 'visual',
+    cost: 350,
+    requires: 'x5',
+    visual: 'subwaysurfers',
   },
 ];
 
 /* 
 IDEAS
 
-subway surfers gameplay
+subway surfers gameplay wip
 minecraft parkour gameplay
 corte de jabon
-asrm visual
+[asmr] visual
 notificaciones
-barra de progreso reiniciandose
+barra de progreso reiniciandose check
 timer pomodoro (solo visual, no afecta en nada)
 
 */

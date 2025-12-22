@@ -34,6 +34,11 @@
   color: red;
 }
 
+/* progress bar */
+.gain-progress {
+  color: dodgerblue;
+}
+
 @keyframes floatFade {
   0% {
     opacity: 0;

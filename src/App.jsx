@@ -3,6 +3,7 @@ import Button from './components/Button';
 import BoostButton from './components/BoostButton';
 import GainFeed from './components/GainFeed';
 import DvdLogo from './components/visuals/DvdLogo';
+import ProgressBar from './components/visuals/ProgressBar';
 import useGameTick from './hooks/useGameTick';
 import { BOOSTS } from './data/boosts';
 import './App.css';
