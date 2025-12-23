@@ -41,7 +41,7 @@ export const BOOSTS = [
   },
   {
     id: 'subway surfers',
-    type: 'visual',
+    type: 'video',
     cost: 350,
     requires: 'progress bar',
     visual: 'subwaysurfers',
