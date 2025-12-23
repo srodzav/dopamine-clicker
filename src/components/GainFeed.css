@@ -1,6 +1,6 @@
 .gain-feed {
   position: absolute;
-  top: 35%;
+  top: 40%;
   left: 50%;
   transform: translate(40px, -50%);
 }

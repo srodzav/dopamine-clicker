@@ -13,6 +13,12 @@ export const BOOSTS = [
     requires: 'x2',
   },
   {
+    id: 'hint',
+    type: 'message',
+    cost: 50,
+    requires: 'x3',
+  },
+  {
     id: 'x5',
     type: 'multiplier',
     cost: 75, // test. change in production
@@ -23,7 +29,7 @@ export const BOOSTS = [
     id: 'DVD',
     type: 'visual',
     cost: 50, // test. change in production
-    requires: 'x3',
+    requires: 'x5',
     visual: 'dvd',
   },
   {
@@ -37,8 +43,28 @@ export const BOOSTS = [
     id: 'subway surfers',
     type: 'visual',
     cost: 350,
-    requires: 'x5',
+    requires: 'progress bar',
     visual: 'subwaysurfers',
+    videoFile: 'subway-surfers.mp4',
+    position: 'bottom-right',
+  },
+  {
+    id: 'minecraft parkour',
+    type: 'video',
+    cost: 400,
+    requires: 'subway surfers',
+    visual: 'minecraft',
+    videoFile: 'minecraft-parkour.mp4',
+    position: 'bottom-left',
+  },
+  {
+    id: 'asmr',
+    type: 'video',
+    cost: 500,
+    requires: 'minecraft parkour',
+    visual: 'asmr',
+    videoFile: 'asmr.mp4',
+    position: 'top-right',
   },
 ];
 

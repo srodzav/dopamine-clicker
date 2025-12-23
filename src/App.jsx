@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Button from './components/Button';
-import BoostButton from './components/BoostButton';
+import BoostsModal from './components/BoostsModal';
 import GainFeed from './components/GainFeed';
 import DvdLogo from './components/visuals/DvdLogo';
 import ProgressBar from './components/visuals/ProgressBar';
+import VideoVisual from './components/visuals/VideoVisual';
 import useGameTick from './hooks/useGameTick';
 import { BOOSTS } from './data/boosts';
 import './App.css';
@@ -66,12 +67,9 @@ function App() {
         </Button>
       </div>
 
-      {/* list of perks/boosts */}
-      <div className="boosts-container">
-        {boosts.filter(isUnlocked).map((b) => (
-          <BoostButton key={b.id} boost={b} count={count} onBuy={buyBoost} />
-        ))}
-      </div>
+      {/* boosts/perks modals */}
+      {started && <BoostsModal boosts={boosts} count={count} onBuy={buyBoost} isUnlocked={isUnlocked} />}
+
       {boosts.some((b) => b.id === 'DVD' && b.bought) && (
         <DvdLogo
           onGain={(value) => {
@@ -95,6 +93,13 @@ function App() {
           }}
         />
       )}
+
+      {/* videos */}
+      {boosts
+        .filter((b) => b.bought && b.type === 'video')
+        .map((boost) => (
+          <VideoVisual key={boost.id} videoFile={boost.videoFile} title={boost.id} position={boost.position} />
+        ))}
     </>
   );
 }
