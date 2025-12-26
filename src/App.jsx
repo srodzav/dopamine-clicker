@@ -5,8 +5,10 @@ import GainFeed from './components/GainFeed';
 import DvdLogo from './components/visuals/DvdLogo';
 import ProgressBar from './components/visuals/ProgressBar';
 import VideoVisual from './components/visuals/VideoVisual';
+import ToastMessage from './components/ToastMessage';
 import useGameTick from './hooks/useGameTick';
 import { BOOSTS } from './data/boosts';
+import { getRandomPokemonFact } from './data/pokemonFacts';
 import './App.css';
 
 function App() {
@@ -18,6 +20,10 @@ function App() {
   const [started, setStarted] = useState(false);
   // boosts is the array of objects of boosts
   const [boosts, setBoosts] = useState(BOOSTS.map((b) => ({ ...b, bought: false })));
+  // toast messages
+  const [toastMessage, setToastMessage] = useState(null);
+  // pokemonFact
+  const [seenPokemonFacts, setSeenPokemonFacts] = useState([]);
   // multiplier is the main changer of points
   const multiplier = Math.max(1, ...boosts.filter((b) => b.bought && b.type === 'multiplier').map((b) => b.factor));
   // gain formula
@@ -38,7 +44,44 @@ function App() {
     if (!boost || boost.bought || count < boost.cost) return;
 
     setCount((c) => c - boost.cost);
-    setBoosts((bs) => bs.map((b) => (b.id === id ? { ...b, bought: true } : b)));
+
+    // if boost is video and is on screen
+    if (boost.type === 'video' && boost.position) {
+      setBoosts((bs) =>
+        bs.map((b) => {
+          // bought = true
+          if (b.id === id) return { ...b, bought: true };
+          // if another video but same position, bought = false
+          if (b.type === 'video' && b.position === boost.position && b.bought) {
+            return { ...b, bought: false };
+          }
+          return b;
+        })
+      );
+    } else {
+      // random pokemon fact
+      if (id != 'random pokemon fact') {
+        setBoosts((bs) => bs.map((b) => (b.id === id ? { ...b, bought: true } : b)));
+      }
+    }
+
+    // if message
+    if (boost.type === 'message') {
+      if (boost.getMessage) {
+        const messageData = boost.getMessage({
+          getPokemonFact: () => {
+            const fact = getRandomPokemonFact(seenPokemonFacts);
+            setSeenPokemonFacts((prev) => [...prev, fact.id]);
+            return fact;
+          },
+        });
+        setToastMessage(messageData);
+      } else if (boost.message) {
+        setToastMessage({
+          text: boost.message,
+        });
+      }
+    }
   }
 
   // check if a boost is already unlocked
@@ -95,11 +138,21 @@ function App() {
       )}
 
       {/* videos */}
-      {boosts
-        .filter((b) => b.bought && b.type === 'video')
-        .map((boost) => (
-          <VideoVisual key={boost.id} videoFile={boost.videoFile} title={boost.id} position={boost.position} />
-        ))}
+      {(() => {
+        const boughtVideos = boosts.filter((b) => b.bought && b.type === 'video');
+        const videosByPosition = {};
+
+        // last video bought
+        boughtVideos.forEach((boost) => {
+          videosByPosition[boost.position] = boost;
+        });
+
+        // transform videosByPosition to a new object
+        return Object.values(videosByPosition).map((boost) => <VideoVisual key={boost.id} videoFile={boost.videoFile} title={boost.id} position={boost.position} />);
+      })()}
+
+      {/* toast messages */}
+      {toastMessage && <ToastMessage message={toastMessage.text} onClose={() => setToastMessage(null)} />}
     </>
   );
 }

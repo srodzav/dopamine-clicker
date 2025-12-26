@@ -1,0 +1,54 @@
+/* info bootstrap colors */
+.toast-message {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  min-width: 300px;
+  max-width: 400px;
+  background: #007bff;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.toast-message.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: bolder;
+}
+
+@media (max-width: 768px) {
+  .toast-message {
+    top: 20px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+    transform: translateY(-100px);
+  }
+
+  .toast-message.visible {
+    transform: translateY(0);
+  }
+}

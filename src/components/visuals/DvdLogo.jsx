@@ -24,12 +24,22 @@ export default function DvdLogo({ onGain }) {
     let x = Math.random() * (window.innerWidth - 100);
     let y = Math.random() * (window.innerHeight - 50);
     // speed
-    let vx = 1;
-    let vy = 1;
+    let vx = 2;
+    let vy = 2;
     // collision
     let canBounce = true;
+    // throttle
+    let lastTime = 0;
+    const frameDelay = 1000 / 60; // 60 fps
 
-    function animate() {
+    function animate(currentTime) {
+      // throttle
+      if (currentTime - lastTime < frameDelay) {
+        rafId.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = currentTime;
+
       x += vx;
       y += vy;
 
@@ -55,7 +65,7 @@ export default function DvdLogo({ onGain }) {
 
       // bounce hit
       if ((hitX || hitY) && canBounce) {
-        const value = hitX && hitY ? 10 : 1;
+        const value = hitX && hitY ? 50 : 5;
         onGainRef.current?.(value);
         // cooldown 100ms
         canBounce = false;

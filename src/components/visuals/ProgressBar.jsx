@@ -45,7 +45,7 @@ export default function ProgressBar({ onGain }) {
         window.dispatchEvent(
           new CustomEvent('GAIN_MESSAGE', {
             detail: {
-              value: 10,
+              value: 50,
               type: 'progress',
             },
           })
